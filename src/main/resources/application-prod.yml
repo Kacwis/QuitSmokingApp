@@ -1,0 +1,11 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+  datasource:
+    url: "jdbc:sqlserver://localhost\\SQLEXPRESS:55012;database=StopSmokingApp;integratedSecurity=true;encrypt=false"
+  flyway:
+    locations: "filesystem:C:/Users/Kacpe/OneDrive/Pulpit/QuitSmokingApp/src/main/resources/db/migration"
+security:
+  user:
+    password: "abcd1234"

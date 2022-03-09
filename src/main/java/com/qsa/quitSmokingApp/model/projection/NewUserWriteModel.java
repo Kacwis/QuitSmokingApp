@@ -5,6 +5,7 @@ import com.qsa.quitSmokingApp.model.AppUser;
 import com.qsa.quitSmokingApp.model.SmokingData;
 import com.qsa.quitSmokingApp.model.UserLoginInfo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ public class NewUserWriteModel {
 
     private int averageSleepingTime;
 
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     private String gender;
 
@@ -26,6 +27,27 @@ public class NewUserWriteModel {
 
     private String therapyMode;
 
+    public NewUserWriteModel(int averageSleepingTime,
+                             LocalDate dateOfBirth,
+                             String gender,
+                             String login,
+                             String password,
+                             int ageStartedSmoking,
+                             int cigarettesPerDay,
+                             String therapyMode) {
+        this.averageSleepingTime = averageSleepingTime;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+        this.login = login;
+        this.password = password;
+        this.ageStartedSmoking = ageStartedSmoking;
+        this.cigarettesPerDay = cigarettesPerDay;
+        this.therapyMode = therapyMode;
+    }
+
+    public NewUserWriteModel() {
+    }
+
     public int getAverageSleepingTime() {
         return averageSleepingTime;
     }
@@ -34,11 +56,11 @@ public class NewUserWriteModel {
         this.averageSleepingTime = averageSleepingTime;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

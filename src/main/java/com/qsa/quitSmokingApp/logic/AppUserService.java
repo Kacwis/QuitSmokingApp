@@ -10,6 +10,7 @@ import com.qsa.quitSmokingApp.model.repository.UserLoginInfoRepository;
 import com.qsa.quitSmokingApp.model.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,7 +37,7 @@ public class AppUserService {
 
     public AppUser createNewUser(NewUserWriteModel newUserWriteModel){
         int averageSleepingTime = newUserWriteModel.getAverageSleepingTime();
-        Date dateOfBirth = newUserWriteModel.getDateOfBirth();
+        LocalDate dateOfBirth = newUserWriteModel.getDateOfBirth();
         String gender = newUserWriteModel.getGender();
         var appUser = new AppUser();
         appUser.setAverageSleepingTime(averageSleepingTime);
@@ -61,7 +62,19 @@ public class AppUserService {
         var smokingDataRepositoryResult = smokingDataRepository.save(smokingDataResult);
         appUserResult.setSmokingInfo(smokingDataRepositoryResult);
         appUserResult.setUserLoginInfo(userLoginInfoRepositoryResult);
-        return appUser;
+        return appUserResult;
+    }
+
+    public List<AppUser> getAllUsers(){
+        var result = userRepository.findAll();
+        return result;
+    }
+
+    public AppUser getUserById(int id){
+        var result = userRepository.findById(id);
+        if(result.isEmpty())
+            return null;
+        return result.get();
     }
 
 }

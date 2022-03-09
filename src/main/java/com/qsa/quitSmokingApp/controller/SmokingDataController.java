@@ -1,5 +1,6 @@
 package com.qsa.quitSmokingApp.controller;
 
+import com.qsa.quitSmokingApp.logic.SmokingDataService;
 import com.qsa.quitSmokingApp.model.SmokingData;
 import com.qsa.quitSmokingApp.model.repository.SmokingDataRepository;
 import org.slf4j.Logger;
@@ -15,31 +16,32 @@ import java.util.List;
 public class SmokingDataController {
 
     private static final Logger logger = LoggerFactory.getLogger(SmokingDataController.class);
-    private final SmokingDataRepository repository;
+    private final SmokingDataService service;
 
-    SmokingDataController(final SmokingDataRepository repository){
-        this.repository = repository;
+    SmokingDataController(final SmokingDataService service){
+        this.service = service;
     }
 
     @GetMapping("/smkdata")
     ResponseEntity<List<SmokingData>> readAllSmokingData(){
         logger.warn("exposing all smoking data");
-        return ResponseEntity.ok(repository.findAll());
+        return ResponseEntity.ok(service.getAllSmokingData());
     }
 
     @GetMapping("/smkdata/{id}")
     ResponseEntity<?> readSmokingDataById(@PathVariable Integer id){
         logger.warn("exposing smoking data by id");
-        if(!repository.existsById(id)){
+        var result = service.getSmokingDataById(id);
+        if(result == null){
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(repository.findById(id));
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping("/smkdata")
     ResponseEntity<SmokingData> createSmokingData(@RequestBody @Valid SmokingData toCreate){
         logger.info("creating new smoking data");
-        SmokingData result = repository.save(toCreate);
+        var result = service.createSmokingData(toCreate);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);
     }
 

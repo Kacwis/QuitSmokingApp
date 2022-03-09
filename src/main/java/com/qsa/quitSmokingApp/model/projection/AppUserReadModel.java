@@ -3,6 +3,7 @@ package com.qsa.quitSmokingApp.model.projection;
 import com.qsa.quitSmokingApp.model.AppUser;
 
 import javax.xml.crypto.Data;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -12,7 +13,7 @@ public class AppUserReadModel {
 
     private int averageSleepingTime;
 
-    private Date dateOfBirth;
+    private LocalDate dateOfBirth;
 
     private String gender;
 
@@ -44,11 +45,11 @@ public class AppUserReadModel {
         this.averageSleepingTime = averageSleepingTime;
     }
 
-    public Date getDateOfBirth() {
+    public LocalDate getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
+    public void setDateOfBirth(LocalDate dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 

@@ -18,28 +18,25 @@ import java.util.List;
 @RestController
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
-    private final UserRepository repository;
     private final AppUserService appUserService;
 
-    UserController(final UserRepository repository, final AppUserService appUserService){
-        this.repository = repository;
+    UserController(final AppUserService appUserService){
         this.appUserService = appUserService;
     }
 
     @GetMapping(value = "/users", params = {"!sort", "!page", "!size"})
     ResponseEntity<List<AppUser>> readAllUsers(){
         logger.warn("exposing all users");
-        var result = repository.findAll();
-        return ResponseEntity.ok(result);
+        return ResponseEntity.ok(appUserService.getAllUsers());
     }
 
     @GetMapping(value = "/users/{id}")
-    ResponseEntity<?> readUserById(@PathVariable int id){
+    ResponseEntity<AppUser> readUserById(@PathVariable int id){
         logger.info("exposing user by id");
-        if(!repository.existsById(id)){
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(repository.findById(id));
+        var result = appUserService.getUserById(id);
+        if(result == null)
+            return ResponseEntity.badRequest().build();
+        return ResponseEntity.ok(result);
     }
 
     @PostMapping(value = "/users")

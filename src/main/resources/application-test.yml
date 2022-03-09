@@ -1,0 +1,15 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  h2:
+    console:
+      enabled: true
+      path: "/console"
+  datasource:
+    url: "jdbc:h2:file:./ssa-db"
+  flyway:
+    locations: "filesystem:C:/Users/Kacpe/OneDrive/Pulpit/QuitSmokingApp/src/main/resources/db.migration-test"
+security:
+  user:
+    password: "abcd1234"

@@ -2,7 +2,9 @@ package com.qsa.quitSmokingApp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
+import javax.ejb.Local;
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
@@ -14,9 +16,9 @@ public class Therapy {
     @Id
     private Integer id;
 
-    private Date startingDate;
+    private LocalDate startingDate;
 
-    private Date plannedEndDate;
+    private LocalDate plannedEndDate;
 
     private double periodBetweenCigarettes;
 
@@ -45,19 +47,19 @@ public class Therapy {
         this.periodBetweenCigarettes = periodBetweenCigarettes;
     }
 
-    public Date getStartingDate() {
+    public LocalDate getStartingDate() {
         return startingDate;
     }
 
-    public Date getPlannedEndDate() {
+    public LocalDate getPlannedEndDate() {
         return plannedEndDate;
     }
 
-    public void setPlannedEndDate(Date plannedEndDate) {
+    public void setPlannedEndDate(LocalDate plannedEndDate) {
         this.plannedEndDate = plannedEndDate;
     }
 
-    public void setStartingDate(Date startingDate) {
+    public void setStartingDate(LocalDate startingDate) {
         this.startingDate = startingDate;
     }
 

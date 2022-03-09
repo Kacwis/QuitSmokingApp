@@ -2,19 +2,20 @@ package com.qsa.quitSmokingApp.model.projection;
 
 import com.qsa.quitSmokingApp.model.Therapy;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 public class TherapyWriteModel {
 
     private float periodBetweenCigarettes;
 
-    private Date plannedEndDate;
+    private LocalDate plannedEndDate;
 
-    private Date startingDate;
+    private LocalDate startingDate;
 
     private int userId;
 
-    TherapyWriteModel(float periodBetweenCigarettes, Date plannedEndDate, Date startingDate, int userId){
+    TherapyWriteModel(float periodBetweenCigarettes, LocalDate plannedEndDate, LocalDate startingDate, int userId){
         this.periodBetweenCigarettes = periodBetweenCigarettes;
         this.plannedEndDate = plannedEndDate;
         this.startingDate = startingDate;
@@ -37,19 +38,19 @@ public class TherapyWriteModel {
         this.periodBetweenCigarettes = periodBetweenCigarettes;
     }
 
-    public Date getPlannedEndDate() {
+    public LocalDate getPlannedEndDate() {
         return plannedEndDate;
     }
 
-    public void setPlannedEndDate(Date plannedEndDate) {
+    public void setPlannedEndDate(LocalDate plannedEndDate) {
         this.plannedEndDate = plannedEndDate;
     }
 
-    public Date getStartingDate() {
+    public LocalDate getStartingDate() {
         return startingDate;
     }
 
-    public void setStartingDate(Date startingDate) {
+    public void setStartingDate(LocalDate startingDate) {
         this.startingDate = startingDate;
     }
 
