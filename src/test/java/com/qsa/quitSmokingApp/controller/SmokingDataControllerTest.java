@@ -1,9 +1,10 @@
 package com.qsa.quitSmokingApp.controller;
 
 
-import com.qsa.quitSmokingApp.adapter.JsonUtil;
+import com.qsa.quitSmokingApp.util.JsonUtil;
 import com.qsa.quitSmokingApp.logic.SmokingDataService;
 import com.qsa.quitSmokingApp.model.SmokingData;
+import com.qsa.quitSmokingApp.util.TestingUtil;
 import org.hamcrest.collection.IsCollectionWithSize;
 import org.hamcrest.core.Is;
 
@@ -24,6 +25,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import java.util.Collections;
 import java.util.List;
 
+import static com.qsa.quitSmokingApp.util.TestingUtil.createSmokingDataSample;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 
@@ -41,10 +43,7 @@ public class SmokingDataControllerTest {
 
     @Test
     public void readAllSmokingData() throws Exception {
-         var smokingData = new SmokingData();
-         smokingData.setAgeStartedSmoking(20);
-         smokingData.setCigarettesPerDay(20);
-         smokingData.setTherapyMode("cessation");
+         var smokingData = createSmokingDataSample();
          List<SmokingData> smokingDataList = Collections.singletonList(smokingData);
          given(service.getAllSmokingData()).willReturn(smokingDataList);
          mvc.perform(MockMvcRequestBuilders.get("/smkdata")
@@ -58,11 +57,7 @@ public class SmokingDataControllerTest {
 
     @Test
     public void readSmokingDataById() throws Exception {
-        var smokingData = new SmokingData();
-        smokingData.setAgeStartedSmoking(20);
-        smokingData.setCigarettesPerDay(20);
-        smokingData.setTherapyMode("cessation");
-        smokingData.setId(20);
+        var smokingData = createSmokingDataSample();
         given(service.getSmokingDataById(smokingData.getId())).willReturn(smokingData);
         mvc.perform(MockMvcRequestBuilders.get("/smkdata/" + smokingData.getId())
                 .with(SecurityMockMvcRequestPostProcessors.user("user").password("abcd1234")))
@@ -74,10 +69,7 @@ public class SmokingDataControllerTest {
 
     @Test
     public void createSmokingData() throws Exception {
-        var smokingData = new SmokingData();
-        smokingData.setAgeStartedSmoking(20);
-        smokingData.setCigarettesPerDay(20);
-        smokingData.setTherapyMode("cessation");
+        var smokingData = createSmokingDataSample();
         given(service.createSmokingData(any(SmokingData.class))).willReturn(smokingData);
         mvc.perform(MockMvcRequestBuilders.post("/smkdata")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -88,5 +80,4 @@ public class SmokingDataControllerTest {
                 .andExpect(MockMvcResultMatchers.jsonPath("cigarettesPerDay", Is.is(20)))
                 .andExpect(MockMvcResultMatchers.jsonPath("therapyMode", Is.is("cessation")));
     }
-
 }

@@ -16,7 +16,7 @@ public interface TherapyRepository {
 
     Optional<Therapy> findById(Integer id);
 
-    Therapy save(Therapy appUser);
+    Therapy save(Therapy therapy);
 
     boolean existsById(Integer id);
 }

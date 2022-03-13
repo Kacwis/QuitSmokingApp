@@ -1,4 +1,4 @@
-package com.qsa.quitSmokingApp.adapter;
+package com.qsa.quitSmokingApp.util;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.JsonProcessingException;

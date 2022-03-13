@@ -7,6 +7,9 @@ import com.qsa.quitSmokingApp.model.repository.TherapyRepository;
 import com.qsa.quitSmokingApp.model.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class TherapyService {
 
@@ -21,17 +24,25 @@ public class TherapyService {
     }
 
     public Therapy addNewTherapyToAppUserAndReturnTherapy(TherapyWriteModel therapyWriteModel){
-        AppUser appUser = null;
         Therapy therapy = therapyWriteModel.toTherapy();
         if(!userRepository.existsById(therapyWriteModel.getUserId())) {
-            var therapyResult = therapyRepository.save(therapy);
-            return therapyResult;
+            return therapyRepository.save(therapy);
         }
-        appUser = userRepository.findById(therapyWriteModel.getUserId()).get();
+        var appUser = userRepository.findById(therapyWriteModel.getUserId()).get();
         therapy.setAppUser(appUser);
         var therapyResult = therapyRepository.save(therapy);
         appUser.getTherapies().add(therapyResult);
         return therapyResult;
+    }
+
+    public List<Therapy> getAllTherapies(){
+        var result = therapyRepository.findAll();
+        return result;
+    }
+
+    public Optional<Therapy> getTherapyById(int id){
+        var result = therapyRepository.findById(id);
+        return result;
     }
 
 

@@ -25,14 +25,12 @@ public class TherapyController {
 
     @GetMapping("/therapies")
     ResponseEntity<List<Therapy>> readAllTherapies(){
-        return ResponseEntity.ok(repository.findAll());
+        return ResponseEntity.ok(service.getAllTherapies());
     }
 
     @GetMapping("/therapies/{id}")
     ResponseEntity<?> readTherapyById(@PathVariable int id ){
-        if(!repository.existsById(id))
-            return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(repository.findById(id));
+        return ResponseEntity.ok(service.getTherapyById(id));
     }
 
     @PostMapping("/therapies")

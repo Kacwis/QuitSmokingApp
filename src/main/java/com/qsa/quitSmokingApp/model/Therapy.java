@@ -2,10 +2,8 @@ package com.qsa.quitSmokingApp.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import javax.ejb.Local;
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Entity
 @Table(name = "therapies")
@@ -29,6 +27,7 @@ public class Therapy {
     private AppUser appUser;
 
     public Therapy(){}
+
 
 
     public AppUser getAppUser() {
