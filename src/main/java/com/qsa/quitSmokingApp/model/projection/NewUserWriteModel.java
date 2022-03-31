@@ -4,27 +4,51 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.qsa.quitSmokingApp.model.AppUser;
 import com.qsa.quitSmokingApp.model.SmokingData;
 import com.qsa.quitSmokingApp.model.UserLoginInfo;
+import org.springframework.beans.factory.annotation.Required;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Date;
 
 public class NewUserWriteModel {
 
+    @NotNull
+    @Min(value = 2, message = "average sleeping time needs to be higher than 2")
+    @Max(value = 20, message = "average sleeping time needs to be lower than 20")
     private int averageSleepingTime;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate dateOfBirth;
 
+    @NotNull
+    @NotEmpty(message = "gender can't be empty")
     private String gender;
 
+    @NotNull
+    @NotEmpty(message = "login can't be empty")
     private String login;
 
+    @NotNull
+    @NotEmpty(message = "password can't be empty")
     private String password;
 
+    @NotNull
+    @Min(value = 5, message = "age started smoking needs to be higher than 5")
+    @Max(value = 100, message = "age started smoking needs to be lower than 100")
     private int ageStartedSmoking;
 
+    @NotNull
+    @Min(value = 5, message = "cigarettes per day needs to be higher than 5")
+    @Max(value = 50, message = "cigarettes per day needs to be lower than 50")
     private int cigarettesPerDay;
 
+    @NotNull
+    @NotEmpty(message = "therapy mode can't be empty")
     private String therapyMode;
 
     public NewUserWriteModel(int averageSleepingTime,

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xml:th="http://thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NewUser</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <header>
+        <img src="images/QuitSmokingAppLogoSmall.png"/>
+        <h2>Register new user</h2>
+
+    </header>
+    <main>
+        <h1 th:if="${message != null}" th:text="${message}" ></h1>
+        <!--/*@thymesVar id="newUser" type="com.qsa.quitSmokingApp.model.projection.NewUserWriteModel"*/-->
+            <fieldset>
+                <legend>Registration</legend>
+                <form method="POST" th:action="@{/newUser}" th:object="${newUser}">
+                    <p th:if="${#fields.hasAnyErrors()}" th:errors="*{all}" class="error-text"></p>
+                <label>
+                    Login
+                    <br>
+                    <input type="text" th:field="${newUser.login}" th:errorclass="'error-input'"/>
+                </label>
+                <br>
+                <label>
+                    Password
+                    <br>
+                    <input type="password" th:field="${newUser.password}" th:errorclass="'error-input'"/>
+                </label>
+                <br>
+                <label>
+                    Date of Birth
+                    <br>
+                    <input type="date" th:field="${newUser.dateOfBirth}" th:errorclass="'error-input'"/>
+                </label>
+                <br>
+                <label>
+                    Average sleeping time
+                    <br>
+                    <input type="number" th:field="${newUser.averageSleepingTime}" th:errorclass="'error-input'"/>
+                </label>
+                <br>
+                <label>
+                    Age started smoking
+                    <br>
+                    <input type="number" th:field="${newUser.ageStartedSmoking}" th:errorclass="'error-input'">
+                </label>
+                <br>
+                <label>
+                    Cigarettes per day
+                    <br>
+                    <input type="number" th:field="${newUser.cigarettesPerDay}" th:errorclass="'error-input'"/>
+                </label>
+                <br>
+                <label>
+                    Therapy mode
+                    <br>
+                    <select th:field="${newUser.therapyMode}">
+                        <option value="Cessation">
+                            Cessation
+                        </option>
+                        <option value="Reducing">
+                            Reducing
+                        </option>
+                    </select>
+                </label>
+                <br>
+                <label>
+                    Gender
+                    <br>
+                    <select th:field="${newUser.gender}">
+                        <option value="Male">
+                            Male
+                        </option>
+                        <option value="Female">
+                            Female
+                        </option>
+                    </select>
+                </label>
+                    <div class="form-buttons">
+                        <button type="submit" class="form-button-submit">Register</button>
+                        <button type="reset" class="form-button-clear">Clear</button>
+                        <a href="/index.html">
+                            <button  class="form-button-cancel">
+                                Cancel
+                            </button>
+                        </a>
+                    </div>
+                </form>
+            </fieldset>
+    </main>
+</body>
+</html>

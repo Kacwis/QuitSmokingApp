@@ -13,6 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/therapies")
 public class TherapyController {
 
     final private TherapyRepository repository;
@@ -23,20 +24,21 @@ public class TherapyController {
         this.repository = repository;
     }
 
-    @GetMapping("/therapies")
+    @GetMapping
     ResponseEntity<List<Therapy>> readAllTherapies(){
         return ResponseEntity.ok(service.getAllTherapies());
     }
 
-    @GetMapping("/therapies/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<?> readTherapyById(@PathVariable int id ){
         return ResponseEntity.ok(service.getTherapyById(id));
     }
 
-    @PostMapping("/therapies")
+    @PostMapping
     ResponseEntity<?> createTherapy(@RequestBody @Valid TherapyWriteModel therapyWriteModel){
         var result = service.addNewTherapyToAppUserAndReturnTherapy(therapyWriteModel);
         return ResponseEntity.created(URI.create("/therapies/" + result.getId())).body(result);
+
     }
 
 }

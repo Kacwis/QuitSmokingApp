@@ -25,11 +25,11 @@ public class AppUserReadModel {
 
     public AppUserReadModel(AppUser source){
         this.id = source.getId();
-        this.ageStartedSmoking = source.getSmokingInfo().getAgeStartedSmoking();
+        this.ageStartedSmoking = source.getSmokingData().getAgeStartedSmoking();
         this.dateOfBirth = source.getDateOfBirth();
         this.gender = source.getGender();
-        this.cigarettesPerDay = source.getSmokingInfo().getCigarettesPerDay();
-        this.therapyMode = source.getSmokingInfo().getTherapyMode();
+        this.cigarettesPerDay = source.getSmokingData().getCigarettesPerDay();
+        this.therapyMode = source.getSmokingData().getTherapyMode();
     }
 
     public int getId() {

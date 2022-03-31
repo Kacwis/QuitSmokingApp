@@ -16,6 +16,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
     private static final Logger logger = LoggerFactory.getLogger(UserController.class);
     private final AppUserService appUserService;
@@ -24,13 +25,13 @@ public class UserController {
         this.appUserService = appUserService;
     }
 
-    @GetMapping(value = "/users", params = {"!sort", "!page", "!size"})
+    @GetMapping(params = {"!sort", "!page", "!size"})
     ResponseEntity<List<AppUser>> readAllUsers(){
         logger.warn("exposing all users");
         return ResponseEntity.ok(appUserService.getAllUsers());
     }
 
-    @GetMapping(value = "/users/{id}")
+    @GetMapping(value = "/{id}")
     ResponseEntity<AppUser> readUserById(@PathVariable int id){
         logger.info("exposing user by id");
         var result = appUserService.getUserById(id);
@@ -39,7 +40,7 @@ public class UserController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping(value = "/users")
+    @PostMapping
     ResponseEntity<AppUser> createUser(@RequestBody @Valid NewUserWriteModel newUserWriteModel){
         AppUser result = appUserService.createNewUser(newUserWriteModel);
         return ResponseEntity.created(URI.create("/" + result.getId())).body(result);

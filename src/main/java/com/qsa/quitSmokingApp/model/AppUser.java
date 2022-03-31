@@ -69,14 +69,6 @@ public class AppUser {
         return averageSleepingTime;
     }
 
-    public SmokingData getSmokingInfo() {
-        return smokingData;
-    }
-
-    public void setSmokingInfo(SmokingData smokingData) {
-        this.smokingData = smokingData;
-    }
-
     public void setAverageSleepingTime(int averageSleepingTime) {
         this.averageSleepingTime = averageSleepingTime;
     }

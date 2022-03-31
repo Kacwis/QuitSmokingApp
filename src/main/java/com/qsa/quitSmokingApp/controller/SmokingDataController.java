@@ -13,6 +13,7 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
+@RequestMapping("/smkdata")
 public class SmokingDataController {
 
     private static final Logger logger = LoggerFactory.getLogger(SmokingDataController.class);
@@ -22,13 +23,13 @@ public class SmokingDataController {
         this.service = service;
     }
 
-    @GetMapping("/smkdata")
+    @GetMapping
     ResponseEntity<List<SmokingData>> readAllSmokingData(){
         logger.warn("exposing all smoking data");
         return ResponseEntity.ok(service.getAllSmokingData());
     }
 
-    @GetMapping("/smkdata/{id}")
+    @GetMapping("/{id}")
     ResponseEntity<?> readSmokingDataById(@PathVariable Integer id){
         logger.warn("exposing smoking data by id");
         var result = service.getSmokingDataById(id);
@@ -38,7 +39,7 @@ public class SmokingDataController {
         return ResponseEntity.ok(result);
     }
 
-    @PostMapping("/smkdata")
+    @PostMapping
     ResponseEntity<SmokingData> createSmokingData(@RequestBody @Valid SmokingData toCreate){
         logger.info("creating new smoking data");
         var result = service.createSmokingData(toCreate);

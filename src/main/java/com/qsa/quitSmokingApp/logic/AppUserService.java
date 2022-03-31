@@ -3,6 +3,7 @@ package com.qsa.quitSmokingApp.logic;
 
 import com.qsa.quitSmokingApp.model.AppUser;
 import com.qsa.quitSmokingApp.model.SmokingData;
+import com.qsa.quitSmokingApp.model.UserLoginInfo;
 import com.qsa.quitSmokingApp.model.projection.AppUserReadModel;
 import com.qsa.quitSmokingApp.model.projection.NewUserWriteModel;
 import com.qsa.quitSmokingApp.model.repository.SmokingDataRepository;
@@ -36,31 +37,15 @@ public class AppUserService {
     }
 
     public AppUser createNewUser(NewUserWriteModel newUserWriteModel){
-        int averageSleepingTime = newUserWriteModel.getAverageSleepingTime();
-        LocalDate dateOfBirth = newUserWriteModel.getDateOfBirth();
-        String gender = newUserWriteModel.getGender();
-        var appUser = new AppUser();
-        appUser.setAverageSleepingTime(averageSleepingTime);
-        appUser.setGender(gender);
-        appUser.setDateOfBirth(dateOfBirth);
-        var appUserResult = userRepository.save(appUser);
-
-        String login = newUserWriteModel.getLogin();
-        String password = newUserWriteModel.getPassword();
-        var userLoginInfoResult = loginInfoService.getUserLoginInfo(login, password);
-        userLoginInfoResult.setAppUser(appUserResult);
-        var userLoginInfoRepositoryResult = userLoginInfoRepository.save(userLoginInfoResult);
-
-        int ageStartedSmoking = newUserWriteModel.getAgeStartedSmoking();
-        int cigarettesPerDay = newUserWriteModel.getCigarettesPerDay();
-        String therapyMode = newUserWriteModel.getTherapyMode();
-        var smokingDataResult = new SmokingData();
-        smokingDataResult.setTherapyMode(therapyMode);
-        smokingDataResult.setAgeStartedSmoking(ageStartedSmoking);
-        smokingDataResult.setCigarettesPerDay(cigarettesPerDay);
+        var toSaveAppUser = getNewAppUser(newUserWriteModel);
+        var appUserResult = userRepository.save(toSaveAppUser);
+        var toSaveLoginInfo = getUserLoginInfo(newUserWriteModel);
+        toSaveLoginInfo.setAppUser(appUserResult);
+        var userLoginInfoRepositoryResult = userLoginInfoRepository.save(toSaveLoginInfo);
+        var smokingDataResult = getSmokingData(newUserWriteModel);
         smokingDataResult.setAppUser(appUserResult);
         var smokingDataRepositoryResult = smokingDataRepository.save(smokingDataResult);
-        appUserResult.setSmokingInfo(smokingDataRepositoryResult);
+        appUserResult.setSmokingData(smokingDataRepositoryResult);
         appUserResult.setUserLoginInfo(userLoginInfoRepositoryResult);
         return appUserResult;
     }
@@ -75,6 +60,35 @@ public class AppUserService {
         if(result.isEmpty())
             return null;
         return result.get();
+    }
+
+    private AppUser getNewAppUser(NewUserWriteModel newUserWriteModel){
+        int averageSleepingTime = newUserWriteModel.getAverageSleepingTime();
+        LocalDate dateOfBirth = newUserWriteModel.getDateOfBirth();
+        String gender = newUserWriteModel.getGender();
+        var appUser = new AppUser();
+        appUser.setAverageSleepingTime(averageSleepingTime);
+        appUser.setGender(gender);
+        appUser.setDateOfBirth(dateOfBirth);
+        return appUser;
+    }
+
+    private UserLoginInfo getUserLoginInfo(NewUserWriteModel newUserWriteModel){
+        String login = newUserWriteModel.getLogin();
+        String password = newUserWriteModel.getPassword();
+        var userLoginInfoResult = loginInfoService.getUserLoginInfo(login, password);
+        return userLoginInfoResult;
+    }
+
+    private SmokingData getSmokingData(NewUserWriteModel newUserWriteModel){
+        int ageStartedSmoking = newUserWriteModel.getAgeStartedSmoking();
+        int cigarettesPerDay = newUserWriteModel.getCigarettesPerDay();
+        String therapyMode = newUserWriteModel.getTherapyMode();
+        var smokingDataResult = new SmokingData();
+        smokingDataResult.setTherapyMode(therapyMode);
+        smokingDataResult.setAgeStartedSmoking(ageStartedSmoking);
+        smokingDataResult.setCigarettesPerDay(cigarettesPerDay);
+        return smokingDataResult;
     }
 
 }
